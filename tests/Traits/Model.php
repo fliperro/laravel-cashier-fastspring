@@ -2,7 +2,7 @@
 
 namespace TwentyTwoDigital\CashierFastspring\Tests\Traits;
 
-use TwentyTwoDigital\CashierFastspring\Tests\Fixtures\User;
+use Workbench\App\Models\User;
 
 trait Model
 {
@@ -11,6 +11,7 @@ trait Model
         return User::create(array_merge([
             'email' => 'bilal@gultekin.me',
             'name'  => 'Bilal Gultekin',
+            'password' => '$2a$12$.6qft33O/v18IoTQXjkKAeSZmBiOQCGO.I21LyhZV6GjFpjh1/Gum',
         ], $parameters));
     }
 

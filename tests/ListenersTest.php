@@ -3,7 +3,7 @@
 namespace TwentyTwoDigital\CashierFastspring\Tests;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Orchestra\Testbench\TestCase;
+use TwentyTwoDigital\CashierFastspring\Tests\TestCase;
 use TwentyTwoDigital\CashierFastspring\Events;
 use TwentyTwoDigital\CashierFastspring\Fastspring\Fastspring;
 use TwentyTwoDigital\CashierFastspring\Invoice;
@@ -16,27 +16,6 @@ class ListenersTest extends TestCase
 {
     use Database;
     use Model;
-
-    public static function setUpBeforeClass()
-    {
-        if (file_exists(__DIR__ . '/.env')) {
-            $dotenv = \Dotenv\Dotenv::create(__DIR__);
-            $dotenv->load();
-        }
-    }
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        Eloquent::unguard();
-
-        // create tables
-        $this->createUsersTable();
-        $this->createSubscriptionsTable();
-        $this->createSubscriptionPeriodsTable();
-        $this->createInvoicesTable();
-    }
 
     /**
      * Tests.

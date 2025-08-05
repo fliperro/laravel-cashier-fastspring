@@ -5,7 +5,7 @@ namespace TwentyTwoDigital\CashierFastspring\Tests;
 use Carbon\Carbon;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Orchestra\Testbench\TestCase;
+use TwentyTwoDigital\CashierFastspring\Tests\TestCase;
 use TwentyTwoDigital\CashierFastspring\Subscription;
 use TwentyTwoDigital\CashierFastspring\Tests\Traits\Database;
 use TwentyTwoDigital\CashierFastspring\Tests\Traits\Guzzle;
@@ -16,27 +16,6 @@ class SubscriptionTest extends TestCase
     use Database;
     use Model;
     use Guzzle;
-
-    public static function setUpBeforeClass()
-    {
-        if (file_exists(__DIR__.'/.env')) {
-            $dotenv = \Dotenv\Dotenv::create(__DIR__);
-            $dotenv->load();
-        }
-    }
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        Eloquent::unguard();
-
-        // create tables
-        $this->createUsersTable();
-        $this->createSubscriptionsTable();
-        $this->createSubscriptionPeriodsTable();
-        $this->createInvoicesTable();
-    }
 
     /**
      * Tests.
@@ -62,8 +41,8 @@ class SubscriptionTest extends TestCase
         $subscription = $this->createSubscription($user, ['state' => 'active']);
 
         // create two periods
-        $period1 = $this->createSubscriptionPeriod($subscription);
-        $period2 = $this->createSubscriptionPeriod($subscription);
+        $period1 = $this->createSubscriptionPeriod($subscription, ['start_date' => '2010-01-01', 'end_date' => '2010-01-10']);
+        $period2 = $this->createSubscriptionPeriod($subscription, ['start_date' => '2010-02-01', 'end_date' => '2010-02-10']);
 
         $this->assertEquals($subscription->periods->count(), 2);
         $this->assertEquals($subscription->periods[0]->id, $period1->id);
@@ -565,7 +544,7 @@ class SubscriptionTest extends TestCase
 
         $response = $subscription->resume();
         $this->assertInternalType('object', $response);
-        $this->assertObjectHasAttribute('subscription', $response->subscriptions[0]);
+        $this->assertObjectHasProperty('subscription', $response->subscriptions[0]);
     }
 
     public function testResumeException()

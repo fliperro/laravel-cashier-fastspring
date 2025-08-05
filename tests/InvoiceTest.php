@@ -3,8 +3,7 @@
 namespace TwentyTwoDigital\CashierFastspring\Tests;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Orchestra\Testbench\TestCase;
-use TwentyTwoDigital\CashierFastspring\Tests\Fixtures\User;
+use TwentyTwoDigital\CashierFastspring\Tests\TestCase;
 use TwentyTwoDigital\CashierFastspring\Tests\Traits\Database;
 use TwentyTwoDigital\CashierFastspring\Tests\Traits\Model;
 
@@ -13,39 +12,14 @@ class InvoiceTest extends TestCase
     use Database;
     use Model;
 
-    public static function setUpBeforeClass()
-    {
-        if (file_exists(__DIR__ . '/.env')) {
-            $dotenv = \Dotenv\Dotenv::create(__DIR__);
-            $dotenv->load();
-        }
-    }
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        Eloquent::unguard();
-
-        // create tables
-        $this->createUsersTable();
-        $this->createSubscriptionsTable();
-        $this->createSubscriptionPeriodsTable();
-        $this->createInvoicesTable();
-    }
-
     /**
      * Tests.
      */
     public function testOrder()
     {
-        $email = 'bilal@gultekin.me';
+        $email = 'johndoe@test.com';
 
-        $user = User::create([
-            'email'         => $email,
-            'name'          => 'Bilal Gultekin',
-            'fastspring_id' => 'fastspring_id',
-        ]);
+        $user = $this->createUser(['email' => $email, 'fastspring_id' => 'fastspring_id']);
 
         $invoice = $user->invoices()->create([
             'fastspring_id'                  => 'fastspring_id',
@@ -72,18 +46,5 @@ class InvoiceTest extends TestCase
         $this->assertInstanceOf('Carbon\Carbon', $invoice->subscription_period_start_date);
         $this->assertInstanceOf('Carbon\Carbon', $invoice->subscription_period_end_date);
         $this->assertEquals($invoice->user->email, $email);
-    }
-
-    /**
-     * Schema Helpers.
-     */
-    protected function schema()
-    {
-        return $this->connection()->getSchemaBuilder();
-    }
-
-    protected function connection()
-    {
-        return Eloquent::getConnectionResolver()->connection();
     }
 }

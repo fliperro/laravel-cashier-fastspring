@@ -1,0 +1,8 @@
+providers:
+  - TwentyTwoDigital\CashierFastspring\CashierServiceProvider
+
+migrations:
+  - resources/migrations
+
+workbench:
+  install: true

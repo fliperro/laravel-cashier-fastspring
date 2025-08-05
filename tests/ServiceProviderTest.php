@@ -2,15 +2,11 @@
 
 namespace TwentyTwoDigital\CashierFastspring\Tests;
 
-use Orchestra\Testbench\TestCase;
+use TwentyTwoDigital\CashierFastspring\Tests\TestCase;
 use TwentyTwoDigital\CashierFastspring\CashierServiceProvider;
 
 class ServiceProviderTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-    }
 
     /**
      * Tests.

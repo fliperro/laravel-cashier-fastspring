@@ -5,7 +5,7 @@ namespace TwentyTwoDigital\CashierFastspring\Tests;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use Orchestra\Testbench\TestCase;
+use TwentyTwoDigital\CashierFastspring\Tests\TestCase;
 use TwentyTwoDigital\CashierFastspring\Fastspring\ApiClient;
 use TwentyTwoDigital\CashierFastspring\Fastspring\Fastspring;
 
@@ -16,14 +16,6 @@ use TwentyTwoDigital\CashierFastspring\Fastspring\Fastspring;
 class FastspringTest extends TestCase
 {
     public $fastspring;
-
-    public static function setUpBeforeClass()
-    {
-        if (file_exists(__DIR__ . '/.env')) {
-            $dotenv = \Dotenv\Dotenv::create(__DIR__);
-            $dotenv->load();
-        }
-    }
 
     public function setUp(): void
     {
@@ -79,78 +71,78 @@ class FastspringTest extends TestCase
             ['form'  => 'parameters'],
             ['json'  => 'payload']
         );
-        $this->assertObjectHasAttribute('hello', $response);
+        $this->assertObjectHasProperty('hello', $response);
     }
 
     public function testCreateAccount()
     {
         $response = $this->fastspring->createAccount([]);
-        $this->assertObjectHasAttribute('hello', $response);
+        $this->assertObjectHasProperty('hello', $response);
     }
 
     public function testUpdateAccount()
     {
         $response = $this->fastspring->updateAccount('id', []);
-        $this->assertObjectHasAttribute('hello', $response);
+        $this->assertObjectHasProperty('hello', $response);
     }
 
     public function testGetSubscriptions()
     {
         $response = $this->fastspring->getSubscriptions([]);
-        $this->assertObjectHasAttribute('hello', $response);
+        $this->assertObjectHasProperty('hello', $response);
     }
 
     public function testGetAccounts()
     {
         $response = $this->fastspring->getAccounts([]);
-        $this->assertObjectHasAttribute('hello', $response);
+        $this->assertObjectHasProperty('hello', $response);
     }
 
     public function testGetOrders()
     {
         $response = $this->fastspring->getOrders([]);
-        $this->assertObjectHasAttribute('hello', $response);
+        $this->assertObjectHasProperty('hello', $response);
     }
 
     public function testGetAccount()
     {
         $response = $this->fastspring->getAccount('id');
-        $this->assertObjectHasAttribute('hello', $response);
+        $this->assertObjectHasProperty('hello', $response);
     }
 
     public function testCreateSession()
     {
         $response = $this->fastspring->createSession([]);
-        $this->assertObjectHasAttribute('hello', $response);
+        $this->assertObjectHasProperty('hello', $response);
     }
 
     public function testUpdateSubscriptions()
     {
         $response = $this->fastspring->updateSubscriptions([]);
-        $this->assertObjectHasAttribute('hello', $response);
+        $this->assertObjectHasProperty('hello', $response);
     }
 
     public function testCancelSubscription()
     {
         $response = $this->fastspring->cancelSubscription('id');
-        $this->assertObjectHasAttribute('hello', $response);
+        $this->assertObjectHasProperty('hello', $response);
     }
 
     public function testUncancelSubscription()
     {
         $response = $this->fastspring->uncancelSubscription('id');
-        $this->assertObjectHasAttribute('hello', $response);
+        $this->assertObjectHasProperty('hello', $response);
     }
 
     public function testSwapSubscription()
     {
         $response = $this->fastspring->swapSubscription('id', 'new_plan', true);
-        $this->assertObjectHasAttribute('hello', $response);
+        $this->assertObjectHasProperty('hello', $response);
     }
 
     public function testGetAccountManagementURI()
     {
         $response = $this->fastspring->getAccountManagementURI('id');
-        $this->assertObjectHasAttribute('hello', $response);
+        $this->assertObjectHasProperty('hello', $response);
     }
 }

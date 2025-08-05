@@ -28,15 +28,15 @@ class Invoice extends Model
     protected $guarded = [];
 
     /**
-     * The attributes that should be mutated to dates.
+     * The attributes that should be cast.
      *
-     * @var array
+     * @var array<string, string>
      */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'subscription_period_start_date',
-        'subscription_period_end_date',
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'subscription_period_start_date' => 'date',
+        'subscription_period_end_date' => 'date',
     ];
 
     /**
